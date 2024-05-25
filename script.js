@@ -28,4 +28,28 @@ function getHumanChoice() {
 }
 
 
+function playRound(humanChoice, computerChoice) {
+    console.log(`Computer choice: ${computerChoice}`);
+    console.log(`Human choice: ${humanChoice}`);
 
+    if (computerChoice === humanChoice) {
+        console.log('It is a tie!');
+    } else if (computerChoice === 'rock' && humanChoice === 'scissors' ||
+        computerChoice === 'paper' && humanChoice === 'rock' ||
+        computerChoice === 'scissors' && humanChoice === 'paper') {
+        console.log('Computer wins!');
+        computerScore++;
+    } else {
+        console.log('Human wins!');
+        userScore++;
+    }
+
+    console.log(`Computer score: ${computerScore}`);
+    console.log(`Human score: ${userScore}`)
+
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);
