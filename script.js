@@ -9,4 +9,16 @@ function getComputerChoice() {
 }
 
 
+function getHumanChoice() {
+
+    let userChoice = prompt('Enter your choice: rock, paper or scissors').toLowerCase();
+
+    while (userChoice !== 'rock' && userChoice !== 'paper' && userChoice !== 'scissors') {
+        userChoice = prompt('Invalid choice! Enter your choice: rock, paper or scissors').toLowerCase();
+    }
+
+    return userChoice;
+}
+
+
 
