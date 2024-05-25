@@ -1,4 +1,11 @@
 
+//global variables
+
+//score variables to keep track of the scores
+let userScore = 0;
+let computerScore = 0;
+
+
 
 function getComputerChoice() {
     const choices = ['rock', 'paper', 'scissors'];
