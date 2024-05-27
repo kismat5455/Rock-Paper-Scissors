@@ -90,7 +90,7 @@ function determineWinner() {
 const buttons = document.querySelector(".buttons");
 console.log(buttons);
 buttons.addEventListener('click', function (event) {
-    switch (event.target.id) {
+    switch (event.target.className) {
         case 'rock':
             playRound('rock', getComputerChoice());
             break;
