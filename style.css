@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/*Buttons*/
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #0e000057;
+
+}
+
+.buttons button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 10px 10px;
+}
+
+.buttons button:hover {
+    background-color: #0e0000;
+    color: white;
+}
