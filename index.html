@@ -5,66 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock-Paper-Scissors</title>
-    <script src="script.js" defer>  </script>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
-    <!-- 3 new buttons for Rock,Paper and Scissor -->
-    <div class="buttons">
+    <header>
+        <h1 id="title">Rock-Paper-Scissors</h1>
+    </header>
 
-        <div class="container">
-            <button id="rock">
-
-                <img src="images/stone.png" alt="rock" width="300px" height="300px">
-                <p> Rock</p>
-            </button>
-            <button id="paper">
-                <img src="images/paper.png" alt="paper" width="300px" height="300px">
-                <p> Paper</p>
-            </button>
-
-            <button id="scissors">
-                <img src="images/scissor.png" alt="scissors" width="300px" height="300px">
-                <p> Scissors</p>
-            </button>
+    <main>
+        <div class="buttons">
+            <div class="container">
+                <button id="rock">
+                    <img src="images/stone.png" alt="rock" width="300px" height="300px">
+                    <p>Rock</p>
+                </button>
+                <button id="paper">
+                    <img src="images/paper.png" alt="paper" width="300px" height="300px">
+                    <p>Paper</p>
+                </button>
+                <button id="scissors">
+                    <img src="images/scissor.png" alt="scissors" width="300px" height="300px">
+                    <p>Scissors</p>
+                </button>
+            </div>
         </div>
-    </div>
 
-    <!-- Display Board for player score, computer score and who wins the game -->
-    <div id="displayBoard">
-        <!-- Score -->
-
-        <div class="score">
-            <h1>Score</h1>
-            <div class="container1">
-                <p id="user">User: 0</p>
-                <p id="computer">Computer: 0</p>
+        <section id="displayBoard">
+            <div>
+                <p id="chanceLeft">Number of Games Left(TIE does not reduce game count): 5</p>
             </div>
 
-        </div>
+            <div id="choices">
+                <p>Computer Choice: <span id="computerChoice">None</span></p>
+                <p>User Choice: <span id="humanChoice">None</span></p>
+            </div>
 
-        <!-- Result -->
-        <div class="result">
-            <h1>Result</h1>
-            <p id="result">Make your move</p>
-        </div>
+            <div class="score">
+                <h2>Score</h2>
+                <div class="container1">
+                    <p>User: <span id="humanScore">0</span></p>
+                    <p>Computer: <span id="computerScore">0</span></p>
+                </div>
+            </div>
 
-        <div class="reset">
-            <button id="reset">Reset</button>
-        </div>
+            <div>
+                <h2 class="results">Result: <span id="result"></span></h2>
+            </div>
 
-        <!-- Footer -->
-        <div class="footer">
+            <div class="reset">
+                <button id="reset">Reset</button>
+            </div>
+        </section>
+    </main>
 
-        </div>
-
-        <!-- Chances Left -->
-        <div>
-            <p id=" chanceLeft">Chances Left: 5</p>
-        </div>
-    </div>
-
+    <footer>
+        <p class="footer-text">&#x2728; Made by Kismat Ali &#9825;</p>
+    </footer>
 </body>
 
 </html>
