@@ -6,22 +6,15 @@
  * and the winner of each round is determined based on the game rules.
  * At the end of the game, the overall winner is determined based on the scores.
  * The script also includes event listeners for buttons to allow the user to make their choice.
- *
- * @file This file contains the JavaScript code for the Rock-Paper-Scissors game.
- * @summary Rock-Paper-Scissors game script.
- * @version 1.0
- *
  */
 
 //global variables
-
-//score variables to keep track of the scores
 let userScore = 0;
 let computerScore = 0;
+let round = 5;
 
 /**
  * Generates a random choice for the computer.
- * @returns {string} The computer's choice (rock, paper, or scissors).
  */
 function getComputerChoice() {
     const choices = ['rock', 'paper', 'scissors'];
@@ -32,56 +25,98 @@ function getComputerChoice() {
 }
 
 /**
- * Prompts the user to enter their choice and validates it.
- * @returns {string} The user's choice (rock, paper, or scissors).
- */
-function getHumanChoice() {
-
-    let userChoice = prompt('Enter your choice: rock, paper or scissors').toLowerCase();
-
-    while (userChoice !== 'rock' && userChoice !== 'paper' && userChoice !== 'scissors') {
-        userChoice = prompt('Invalid choice! Enter your choice: rock, paper or scissors').toLowerCase();
-    }
-
-    return userChoice;
-}
-
-/**
  * Plays a round of the game and determines the winner.
- * @param {string} humanChoice - The user's choice (rock, paper, or scissors).
- * @param {string} computerChoice - The computer's choice (rock, paper, or scissors).
  */
 function playRound(humanChoice, computerChoice) {
-    console.log(`Computer choice: ${computerChoice}`);
-    console.log(`Human choice: ${humanChoice}`);
-
-    if (computerChoice === humanChoice) {
-        console.log('This round is a tie!');
-    } else if (computerChoice === 'rock' && humanChoice === 'scissors' ||
-        computerChoice === 'paper' && humanChoice === 'rock' ||
-        computerChoice === 'scissors' && humanChoice === 'paper') {
-        console.log('Computer wins current round!');
-        computerScore++;
-    } else {
-        console.log('Human wins current round!');
-        userScore++;
+    if (round <= 0) {
+        determineWinner();
+        return; // Exit early if no rounds remain
     }
 
-    console.log(`Computer score: ${computerScore}`);
-    console.log(`Human score: ${userScore}`)
+    // Update Choice elements
+    updateChoiceDisplays(humanChoice, computerChoice);
 
+
+    // Determine round outcome
+    const resultText = getRoundResultText(humanChoice, computerChoice);
+    const resultColor = (resultText.includes("You win")) ? 'green' : 'red';
+
+    // Update result display
+    updateResultDisplay(resultText, resultColor);
+
+    // Update scores and chances left
+    updateScoresDisplay();
+    updateChancesLeftDisplay();
 }
 
-/**
- * Determines the overall winner of the game.
- */
 function determineWinner() {
-    if (userScore > computerScore) {
-        console.log('Human wins the game!');
-    } else if (userScore < computerScore) {
-        console.log('Computer wins the game!');
+    const resultText = getFinalResultText(userScore, computerScore);
+    const resultColor = (resultText.includes("You win")) ? 'green' : 'red';
+    updateResultDisplay(resultText, resultColor);
+}
+
+// Helper functions 
+
+function updateChancesLeftDisplay() {
+    document.getElementById('chanceLeft').textContent = `Number of Games Left(Tie does not reduce game count): ${round}`;
+}
+
+function updateChoiceDisplays(humanChoice, computerChoice) {
+    document.getElementById('computerChoice').textContent = computerChoice.toUpperCase();
+    document.getElementById('humanChoice').textContent = humanChoice.toUpperCase();
+}
+
+function updateScoresDisplay() {
+    document.getElementById('humanScore').textContent = userScore;
+    document.getElementById('computerScore').textContent = computerScore;
+}
+
+function updateResultDisplay(resultText, resultColor) {
+    const resultElement = document.getElementById('result');
+    resultElement.textContent = resultText;
+    resultElement.style.color = resultColor;
+}
+
+function getRoundResultText(humanChoice, computerChoice) {
+    if (computerChoice === humanChoice) {
+        return '  This round is a tie!';
+    } else if (didComputerWin(computerChoice, humanChoice)) {
+        round--;
+        computerScore++;
+        if (round === 0) {
+            updateChancesLeftDisplay()
+            updateScoresDisplay();
+            determineWinner();
+        } else {
+            return '  Computer wins current round!';
+        }
+
     } else {
-        console.log('It is a tie!');
+        round--;
+        userScore++;
+        if (round === 0) {
+            updateChancesLeftDisplay()
+            updateScoresDisplay();
+            determineWinner();
+        } else {
+            return '  You win current round!';
+        }
+    }
+}
+
+function didComputerWin(computerChoice, humanChoice) {
+    return (computerChoice === 'rock' && humanChoice === 'scissors') ||
+        (computerChoice === 'paper' && humanChoice === 'rock') ||
+        (computerChoice === 'scissors' && humanChoice === 'paper');
+}
+
+function getFinalResultText(userScore, computerScore) {
+    if (userScore > computerScore) {
+        return '  Congratulations! You win the game!';
+    } else if (userScore < computerScore) {
+        return '  Sorry! Computer wins the game! Try again!';
+    } else {
+        return '  The game is a tie! Try again! Let\'s see who wins next time!';
     }
 }
 
@@ -103,4 +138,29 @@ buttons.addEventListener('click', function (event) {
     }
 });
 
+
+// Inside the script, where the resetButton is initially defined:
+
+const resetButton = document.getElementById('reset');
+
+resetButton.addEventListener('click', resetGame);
+
+function resetGame() {
+    userScore = 0;
+    computerScore = 0;
+    round = 5;
+
+    updateScoresDisplay();
+    updateChancesLeftDisplay();
+
+    // Reset choice and result displays
+    const choiceElements = ['computerChoice', 'humanChoice'];
+    const resultElement = document.getElementById('result');
+
+    choiceElements.forEach(elementId => {
+        document.getElementById(elementId).textContent = 'None';
+    });
+
+    resultElement.textContent = '';
+}
 
